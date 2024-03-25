@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear los tabs de las categorias-->
+        <section th:fragment="tabsCategorias" id="categorias">
+            <div class="row py-4">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="/pruebas/listado"
+                           >[[#{pruebas.todas}]]</a>
+                    </li>
+                    <li th:each="c : ${categorias}"
+                        class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/pruebas/listado/}+${c.idCategoria}"
+                           >[[${c.descripcion}]]</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para el listado de productos en bonito -->
+        <section th:fragment="listadoProductos" id="productos">
+            <div class="row row-cols-3">
+                <div class="card p-2" th:each="p : ${productos}">
+                    <figure>
+                        <img th:src="${p.rutaImagen}"
+                             height="200" alt="alt"/>
+                        <figcaption>
+                            [[${p.precio}]] ([[${p.existencias}]])
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4 class="card-title">[[${p.descripcion}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">[[${p.detalle}]]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección para crear los filtros de las consultas de productos por precio-->
+        <section th:fragment="filtros">
+            <div class="row py-4">
+                <div class="col-md-4">
+                    <form method="POST" 
+                          th:action="@{/pruebas/query1}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="fechaInf">
+                                        [[#{pruebas.precio.inferior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioInf}"
+                                           th:name="precioInf"
+                                           required="true"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fechaSup">
+                                        [[#{pruebas.precio.superior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioSup}"
+                                           th:name="precioSup"
+                                           required="true"/>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" 
+                                        class="btn btn-primary">
+                                    <i class="fas-fa-check"></i> [[#{pruebas.ampliadas}]]
+                                </button>
+                            </div>
+                        </div>
+                    </form>                    
+                </div>
+
+                <div class="col-md-4">
+                    <form method="POST" 
+                          th:action="@{/pruebas/query2}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="fechaInf">
+                                        [[#{pruebas.precio.inferior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioInf}"
+                                           th:name="precioInf"
+                                           required="true"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fechaSup">
+                                        [[#{pruebas.precio.superior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioSup}"
+                                           th:name="precioSup"
+                                           required="true"/>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" 
+                                        class="btn btn-primary">
+                                    <i class="fas-fa-check"></i> [[#{pruebas.jpql}]]
+                                </button>
+                            </div>
+                        </div>
+                    </form>                    
+                </div>
+                
+                <div class="col-md-4">
+                    <form method="POST" 
+                          th:action="@{/pruebas/query3}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="fechaInf">
+                                        [[#{pruebas.precio.inferior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioInf}"
+                                           th:name="precioInf"
+                                           required="true"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fechaSup">
+                                        [[#{pruebas.precio.superior}]]</label>
+                                    <input type="number" 
+                                           class="form-control"
+                                           th:value="${precioSup}"
+                                           th:name="precioSup"
+                                           required="true"/>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" 
+                                        class="btn btn-primary">
+                                    <i class="fas-fa-check"></i> [[#{pruebas.nativo}]]
+                                </button>
+                            </div>
+                        </div>
+                    </form>                    
+                </div>
+                
+            </div>
+        </section>
+
+    </body>
+</html>
